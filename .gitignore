@@ -34,3 +34,4 @@ hs_err_pid*
 /.apt_generated/
 
 /.idea/
+/tangx-logs/
