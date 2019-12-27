@@ -10,7 +10,7 @@
         <version>2.0.1.RELEASE</version>
     </parent>
 
-    <groupId>cn.com.mpen</groupId>
+    <groupId>com.boot</groupId>
     <artifactId>springbootproject</artifactId>
     <version>1.0.0</version>
 
@@ -265,7 +265,7 @@
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-core</artifactId>
-            <version>4.1.2</version>
+            <version>4.1.12</version>
         </dependency>
 
         <!--数据库-->

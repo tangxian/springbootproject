@@ -35,7 +35,7 @@ spring:
 
 
 log:
-  path: tangx-logs
+  path: boot-logs
 
 ---
 
@@ -73,7 +73,7 @@ spring:
     port: 6379
 
 mybatis-plus:
-  typeAliasesPackage: cn.com.mpen.modular.system.model
+  typeAliasesPackage: com.boot.modular.system.model
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  #mybatis-plus配置控制台打印完整带参数SQL语句
 
@@ -93,7 +93,7 @@ spring:
       nodes: 127.0.0.1:26379,127.0.0.1:26479,127.0.0.1:26579
 
 mybatis-plus:
-  typeAliasesPackage: cn.com.mpen.modular.system.model
+  typeAliasesPackage: com.boot.modular.system.model
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  #mybatis-plus配置控制台打印完整带参数SQL语句
 
@@ -112,4 +112,4 @@ spring:
     port: 6379
 
 mybatis-plus:
-  typeAliasesPackage: cn.com.mpen.modular.system.model
+  typeAliasesPackage: com.boot.modular.system.model
