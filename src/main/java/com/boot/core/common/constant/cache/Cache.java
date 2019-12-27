@@ -24,7 +24,19 @@ package com.boot.core.common.constant.cache;
 public interface Cache {
 
     /**
-     * 常量缓存
+     * 字典常量缓存
      */
     String CONSTANT = "CONSTANT";
+    /**
+     * 权限常量缓存
+     **/
+    String ROLE = "ROLE";
+    /**
+     * 用户常量缓存
+     **/
+    String USER = "USER";
+    /**
+     * 部门常量缓存
+     **/
+    String DEPT = "DEPT";
 }

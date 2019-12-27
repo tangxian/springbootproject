@@ -36,6 +36,11 @@ public interface IConstantFactory {
     String getUserAccountById(Integer userId);
 
     /**
+     * 删除所有的用户缓存
+     **/
+    public void removeAllUserCache();
+
+    /**
      * 通过角色ids获取角色名称
      */
     String getRoleName(String roleIds);
@@ -51,9 +56,19 @@ public interface IConstantFactory {
     String getSingleRoleTip(Integer roleId);
 
     /**
+     * 删除所有的权限缓存
+     **/
+    void removeAllRoleCache();
+
+    /**
      * 获取部门名称
      */
     String getDeptName(Integer deptId);
+
+    /**
+     * 删除所有的部门缓存
+     **/
+    public void removeAllDeptCache();
 
     /**
      * 获取菜单的名称们(多个)

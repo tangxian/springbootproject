@@ -260,7 +260,6 @@ public class UserMgrController extends BaseController {
                 throw new ServiceException(BizExceptionEnum.USER_ALREADY_REG);
             }
         }
-
         //判断用户邮箱是否重复
         int email = userService.selectCount(new EntityWrapper<User>().eq("email", user.getEmail()));
         if (!oldUser.getEmail().equals(user.getEmail())) {   //用户修改邮箱
@@ -268,6 +267,8 @@ public class UserMgrController extends BaseController {
                 throw new ServiceException(BizExceptionEnum.EMAIL_ALREADY_REG);
             }
         }
+        //清除缓存
+        ConstantFactory.me().removeAllUserCache();
         if (ShiroKit.hasRole(Const.ADMIN_NAME) || ShiroKit.hasRole(Const.GENERALADMIN_NAME)) {
             try {
                 if (oldUser.getEmail().equals(user.getEmail())) { //如果没有修改邮箱

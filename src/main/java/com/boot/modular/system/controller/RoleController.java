@@ -152,8 +152,8 @@ public class RoleController extends BaseController {
         }
         this.roleService.updateById(role);
 
-        //删除缓存
-        CacheUtil.removeAll(Cache.CONSTANT);
+        //清空缓存
+        ConstantFactory.me().removeAllRoleCache();
         return SUCCESS_TIP;
     }
 
@@ -183,7 +183,8 @@ public class RoleController extends BaseController {
         LogObjectHolder.me().set(ConstantFactory.me().getSingleRoleName(roleId));
 
         this.roleService.delRoleById(roleId);
-
+        //清空缓存
+        ConstantFactory.me().removeAllRoleCache();
         return SUCCESS_TIP;
     }
 

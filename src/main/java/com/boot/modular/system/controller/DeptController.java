@@ -144,6 +144,8 @@ public class DeptController extends BaseController {
         }
         deptSetPids(dept);
         deptService.updateById(dept);
+        //清空缓存
+        ConstantFactory.me().removeAllDeptCache();
         return SUCCESS_TIP;
     }
 
@@ -160,7 +162,8 @@ public class DeptController extends BaseController {
         LogObjectHolder.me().set(ConstantFactory.me().getDeptName(deptId));
 
         deptService.deleteDept(deptId);
-
+        //清空缓存
+        ConstantFactory.me().removeAllDeptCache();
         return SUCCESS_TIP;
     }
 

@@ -15,22 +15,19 @@
  */
 package com.boot.core.common.constant.factory;
 
-import com.boot.core.kernel_core.util.SpringContextHolder;
-import com.boot.modular.system.dao.*;
-import com.boot.modular.system.model.*;
-import cn.hutool.core.convert.Convert;
-import cn.hutool.core.util.StrUtil;
 import com.boot.core.common.constant.cache.Cache;
 import com.boot.core.common.constant.cache.CacheKey;
 import com.boot.core.common.constant.state.ManagerStatus;
 import com.boot.core.common.constant.state.MenuStatus;
-import com.boot.core.log.LogObjectHolder;
+import com.boot.core.kernel_core.util.SpringContextHolder;
 import com.boot.core.kernel_core.util.ToolUtil;
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.mapper.Wrapper;
-
+import com.boot.core.log.LogObjectHolder;
 import com.boot.modular.system.dao.*;
 import com.boot.modular.system.model.*;
+import cn.hutool.core.convert.Convert;
+import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -67,7 +64,7 @@ public class ConstantFactory implements IConstantFactory {
      * 根据用户id获取用户名称
      */
     @Override
-    @Cacheable(value = Cache.CONSTANT, key = "'" + CacheKey.TRUENAME_USER_ID + "'+#userId")
+    @Cacheable(value = Cache.USER, key = "'" + CacheKey.TRUENAME_USER_ID + "'+#userId")
     public String getUserNameById(Integer userId) {
         User user = userMapper.selectById(userId);
         if (user != null) {
@@ -81,7 +78,7 @@ public class ConstantFactory implements IConstantFactory {
      * 根据用户id获取用户账号
      */
     @Override
-    @Cacheable(value = Cache.CONSTANT, key = "'" + CacheKey.LOGINID_USER_ID + "'+#userId")
+    @Cacheable(value = Cache.USER, key = "'" + CacheKey.LOGINID_USER_ID + "'+#userId")
     public String getUserAccountById(Integer userId) {
         User user = userMapper.selectById(userId);
         if (user != null) {
@@ -92,10 +89,18 @@ public class ConstantFactory implements IConstantFactory {
     }
 
     /**
+     * 删除所有的用户缓存
+     **/
+    @Override
+    @CacheEvict(value = Cache.USER, allEntries = true)
+    public void removeAllUserCache() {
+    }
+
+    /**
      * 通过角色ids获取角色名称
      */
     @Override
-    @Cacheable(value = Cache.CONSTANT, key = "'" + CacheKey.ROLES_NAME + "'+#roleIds")
+    @Cacheable(value = Cache.ROLE, key = "'" + CacheKey.ROLES_NAME + "'+#roleIds")
     public String getRoleName(String roleIds) {
         if (ToolUtil.isEmpty(roleIds)) {
             return "";
@@ -115,7 +120,7 @@ public class ConstantFactory implements IConstantFactory {
      * 通过角色id获取角色名称
      */
     @Override
-    @Cacheable(value = Cache.CONSTANT, key = "'" + CacheKey.SINGLE_ROLE_NAME + "'+#roleId")
+    @Cacheable(value = Cache.ROLE, key = "'" + CacheKey.SINGLE_ROLE_NAME + "'+#roleId")
     public String getSingleRoleName(Integer roleId) {
         if (0 == roleId) {
             return "--";
@@ -131,7 +136,7 @@ public class ConstantFactory implements IConstantFactory {
      * 通过角色id获取角色英文名称
      */
     @Override
-    @Cacheable(value = Cache.CONSTANT, key = "'" + CacheKey.SINGLE_ROLE_TIP + "'+#roleId")
+    @Cacheable(value = Cache.ROLE, key = "'" + CacheKey.SINGLE_ROLE_TIP + "'+#roleId")
     public String getSingleRoleTip(Integer roleId) {
         if (0 == roleId) {
             return "--";
@@ -144,10 +149,18 @@ public class ConstantFactory implements IConstantFactory {
     }
 
     /**
+     * 删除所有的权限缓存
+     **/
+    @Override
+    @CacheEvict(value = Cache.ROLE, allEntries = true)
+    public void removeAllRoleCache() {
+    }
+
+    /**
      * 获取部门名称
      */
     @Override
-    @Cacheable(value = Cache.CONSTANT, key = "'" + CacheKey.DEPT_NAME + "'+#deptId")
+    @Cacheable(value = Cache.DEPT, key = "'" + CacheKey.DEPT_NAME + "'+#deptId")
     public String getDeptName(Integer deptId) {
         Dept dept = deptMapper.selectById(deptId);
         if (ToolUtil.isNotEmpty(dept) && ToolUtil.isNotEmpty(dept.getFullname())) {
@@ -155,6 +168,16 @@ public class ConstantFactory implements IConstantFactory {
         }
         return "";
     }
+
+
+    /**
+     * 删除所有的部门缓存
+     **/
+    @Override
+    @CacheEvict(value = Cache.DEPT, allEntries = true)
+    public void removeAllDeptCache() {
+    }
+
 
     /**
      * 获取菜单的名称们(多个)
@@ -435,7 +458,6 @@ public class ConstantFactory implements IConstantFactory {
     public String getVerifyCode(String phonenum) {
         return "缓存中没有验证码";
     }
-
 
     /**
      * 通过usercenteruserid存入token

@@ -57,7 +57,6 @@ public class CacheUtil {
     public static void removeAll(String cacheName) {
         getOrAddCache(cacheName).removeAll();
     }
-
     private static Cache getOrAddCache(String cacheName) {
         CacheManager cacheManager = SpringContextHolder.getBean(CacheManager.class);
         Cache cache = cacheManager.getCache(cacheName);

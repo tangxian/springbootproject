@@ -1,6 +1,6 @@
 #使用http协议时，http： server: port: 8080即可
 server:
-  port: 8080
+  port: 8088
 
 guns:
   RedisCache: true               #是否开始spring缓存实现为redis true：redis false：EhCache
