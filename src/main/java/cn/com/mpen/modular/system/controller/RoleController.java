@@ -179,28 +179,11 @@ public class RoleController extends BaseController {
             throw new ServiceException(BizExceptionEnum.CANT_DELETE_GENERALADMIN);
         }
 
-        //不能删除出版社管理员角色
-        if (roleId.equals(Const.PUBLISH_ROLE_ID)) {
-            throw new ServiceException(BizExceptionEnum.CANT_DELETE_PUBLISH);
-        }
-
-        //不能删除开发者角色
-        if (roleId.equals(Const.DEVELOPER_ROLE_ID)) {
-            throw new ServiceException(BizExceptionEnum.CANT_DELETE_DEVELOPER);
-        }
-
-        //不能删除编辑
-        if (roleId.equals(Const.EDIT_ROLE_ID)) {
-            throw new ServiceException(BizExceptionEnum.CANT_DELETE_EDIT);
-        }
-
         //缓存被删除的角色名称
         LogObjectHolder.me().set(ConstantFactory.me().getSingleRoleName(roleId));
 
         this.roleService.delRoleById(roleId);
 
-        //删除缓存
-        CacheUtil.removeAll(Cache.CONSTANT);
         return SUCCESS_TIP;
     }
 

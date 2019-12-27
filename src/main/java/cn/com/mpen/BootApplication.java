@@ -26,12 +26,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  */
 @SpringBootApplication(exclude = WebAutoConfiguration.class)
-public class GunsApplication {
+public class BootApplication {
 
-    private final static Logger logger = LoggerFactory.getLogger(GunsApplication.class);
+    private final static Logger logger = LoggerFactory.getLogger(BootApplication.class);
 
     public static void main(String[] args) {
-        SpringApplication.run(GunsApplication.class, args);
-        logger.info("GunsApplication is success springboot工程启动成功!");
+        SpringApplication.run(BootApplication.class, args);
+        logger.info("BootApplication is success springboot工程启动成功!");
     }
 }

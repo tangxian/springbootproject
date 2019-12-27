@@ -23,8 +23,6 @@ package cn.com.mpen.core.common.constant;
  */
 public interface Const {
 
-    String DEFAULT_SALT = "drc";
-
     /**
      * 系统默认的管理员密码
      */
@@ -35,20 +33,11 @@ public interface Const {
      */
     String ADMIN_NAME = "administrator";
 
-    /**
-     * 出版社管理员的名字
-     */
-    String PUBLISH_NAME ="publish";
 
     /**
      * 普通管理员的名字
      */
     String GENERALADMIN_NAME = "admin";
-
-    /**
-     * 开发者名字
-     */
-    String DEVELOPER_NAME = "developer";
 
     /**
      * 管理员id
@@ -65,20 +54,6 @@ public interface Const {
      */
     Integer GENERALADMIN_ROLE_ID = 2;
 
-    /**
-     * 出版社管理员角色id
-     */
-    Integer PUBLISH_ROLE_ID = 3;
-
-    /**
-     * 开发者角色id
-     */
-    Integer DEVELOPER_ROLE_ID = 4;
-
-    /**
-     * 编辑角色id
-     */
-    Integer EDIT_ROLE_ID = 5;
 
     /**
      * 接口文档的菜单名

@@ -1,15 +1,12 @@
 package cn.com.mpen.OkHttp3;
 
-import cn.com.mpen.GunsApplication;
+import cn.com.mpen.BootApplication;
 import cn.com.mpen.core.common.constant.factory.ConstantFactory;
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import okhttp3.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.OkHttp3ClientHttpRequestFactory;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -20,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = GunsApplication.class)
+@SpringBootTest(classes = BootApplication.class)
 @WebAppConfiguration
 public class ConnectTest {
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");

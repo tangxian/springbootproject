@@ -201,7 +201,7 @@ public class UserMgrController extends BaseController {
      */
     @RequestMapping("/add")
     @BussinessLog(value = "添加用户", key = "account", dict = UserDict.class)
-    @Permission({Const.ADMIN_NAME, Const.GENERALADMIN_NAME, Const.PUBLISH_NAME})
+    @Permission({Const.ADMIN_NAME, Const.GENERALADMIN_NAME})
     @ResponseBody
     @Transactional
     public NetworkResult add(@Valid UserDto user, BindingResult result) {
@@ -280,13 +280,6 @@ public class UserMgrController extends BaseController {
             } catch (Exception e) {
                 throw new ServiceException(BizExceptionEnum.UNKNOWN_ERRO);
             }
-        } else if (ShiroKit.hasRole(Const.PUBLISH_NAME)) {
-            try {
-                this.userService.updateById(UserFactory.editUser(user, oldUser));
-                return SUCCESS_TIP;
-            } catch (Exception e) {
-                throw new RuntimeException();
-            }
         } else {
             assertAuth(user.getId());
             ShiroUser shiroUser = ShiroKit.getUser();
@@ -314,7 +307,7 @@ public class UserMgrController extends BaseController {
      */
     @RequestMapping("/delete")
     @BussinessLog(value = "删除管理员", key = "userId", dict = UserDict.class)
-    @Permission({Const.GENERALADMIN_NAME, Const.ADMIN_NAME, Const.PUBLISH_NAME})
+    @Permission({Const.GENERALADMIN_NAME, Const.ADMIN_NAME})
     @ResponseBody
     public NetworkResult delete(@RequestParam Integer userId) {
         if (ToolUtil.isEmpty(userId)) {
@@ -356,7 +349,7 @@ public class UserMgrController extends BaseController {
      */
     @RequestMapping("/freeze")
     @BussinessLog(value = "冻结用户", key = "userId", dict = UserDict.class)
-    @Permission({Const.ADMIN_NAME, Const.GENERALADMIN_NAME, Const.PUBLISH_NAME})
+    @Permission({Const.ADMIN_NAME, Const.GENERALADMIN_NAME})
     @ResponseBody
     public NetworkResult freeze(@RequestParam Integer userId) {
         if (ToolUtil.isEmpty(userId)) {
@@ -376,7 +369,7 @@ public class UserMgrController extends BaseController {
      */
     @RequestMapping("/unfreeze")
     @BussinessLog(value = "解除冻结用户", key = "userId", dict = UserDict.class)
-    @Permission({Const.ADMIN_NAME, Const.GENERALADMIN_NAME, Const.PUBLISH_NAME})
+    @Permission({Const.ADMIN_NAME, Const.GENERALADMIN_NAME})
     @ResponseBody
     public NetworkResult unfreeze(@RequestParam Integer userId) {
         if (ToolUtil.isEmpty(userId)) {
@@ -437,9 +430,6 @@ public class UserMgrController extends BaseController {
             return;
         }
         if (ShiroKit.isGeneralAdmin()) {
-            return;
-        }
-        if (ShiroKit.isPublishAdmin()) {
             return;
         }
         List<Integer> deptDataScope = ShiroKit.getDeptDataScope();
