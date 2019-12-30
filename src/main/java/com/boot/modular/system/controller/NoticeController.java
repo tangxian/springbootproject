@@ -15,14 +15,18 @@
  */
 package com.boot.modular.system.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.boot.core.common.annotion.BussinessLog;
 import com.boot.core.common.constant.dictmap.NoticeMap;
 import com.boot.core.common.constant.factory.ConstantFactory;
 import com.boot.core.common.exception.BizExceptionEnum;
+import com.boot.core.common.exception.FileFormatErrorException;
 import com.boot.core.kernel_model.exception.ServiceException;
 import com.boot.core.log.LogObjectHolder;
 import com.boot.core.shiro.ShiroKit;
+import com.boot.core.util.ExcelUtils;
 import com.boot.modular.system.model.Notice;
+import com.boot.modular.system.model.NoticeInfo;
 import com.boot.modular.system.service.INoticeService;
 import com.boot.modular.system.warpper.NoticeWrapper;
 import com.boot.core.kernel_core.base.controller.BaseController;
@@ -30,10 +34,8 @@ import com.boot.core.kernel_core.util.ToolUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 import java.util.List;
@@ -68,6 +70,33 @@ public class NoticeController extends BaseController {
     @RequestMapping("/notice_add")
     public String noticeAdd() {
         return PREFIX + "notice_add.html";
+    }
+
+    /**
+     * 跳转到通知导入
+     */
+    @RequestMapping("/notice_import")
+    public String noticeImport() {
+        return PREFIX + "notice_import.html";
+    }
+
+    @PostMapping(value = "/readExcel")
+    public String readExcel(@RequestParam(value="uploadFile", required = false) MultipartFile file,Model model){
+        try{
+            long t1 = System.currentTimeMillis();
+            List<NoticeInfo> list = ExcelUtils.readExcel("", NoticeInfo.class, file);
+            long t2 = System.currentTimeMillis();
+            System.out.println(String.format("read over! cost:%sms", (t2 - t1)));
+            for (NoticeInfo noticeInfo : list){
+                System.out.println("aaa"+JSON.toJSONString(noticeInfo));
+            }
+            //写入数据库
+
+            model.addAttribute("tips", "成功导入"+list.size()+"条数据,耗时"+(t2 - t1)+"ms");
+        }catch (FileFormatErrorException fileException){
+            model.addAttribute("tips", "文件格式不正确");
+        }
+        return PREFIX + "notice_import.html";
     }
 
     /**
